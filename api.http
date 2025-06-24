@@ -1,0 +1,30 @@
+@baseurl = http://localhost:3002
+
+###
+GET {{baseurl}}
+
+### - GET Cidades
+GET {{baseurl}}/cidades?page=1&limit=1&filter=aaa
+
+### - GET Cidades by ID
+GET {{baseurl}}/cidades/99999
+
+
+### - POST - CIDADES 
+POST {{baseurl}}/cidades
+Content-Type: application/json
+
+{
+  "nome": "Ta"
+}
+
+### - PUT - CIDADES 
+PUT {{baseurl}}/cidades/1
+Content-Type: application/json
+
+{
+  "nome": "Taubaté"
+}
+
+### - DELETE Cidades by ID
+DELETE {{baseurl}}/cidades/1
