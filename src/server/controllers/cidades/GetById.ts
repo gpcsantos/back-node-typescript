@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { CidadesProvider } from '../../database/providers/cidades'
 import * as yup from 'yup';
 
 import { validation } from '../../shared/middleware';
@@ -23,10 +24,23 @@ export const getByIdValidation = validation((getSchema) =>
 
 export const getById = async (req: Request<IParamProps>, res: Response, next: NextFunction) => {
 
-  if (Number(req.params.id) === 99999) {
+  if (!req.params.id) {
     const err: ErrType = {
       message: {
-        default: 'Registro não encontrado'
+        default: 'O paramento "id" precisa ser informado'
+      },
+      status: StatusCodes.BAD_REQUEST,
+    }
+    next(err);
+    return;
+  }
+
+  const result = await CidadesProvider.getById(Number(req.params.id));
+
+  if (result instanceof Error) {
+    const err: ErrType = {
+      message: {
+        default: result.message
       },
       status: StatusCodes.INTERNAL_SERVER_ERROR,
     }
@@ -34,11 +48,6 @@ export const getById = async (req: Request<IParamProps>, res: Response, next: Ne
     return;
   }
 
-  res.status(StatusCodes.OK).json(
-    {
-      id: req.params.id,
-      nome: 'NomeCidade',
-    }
-  );
+  res.status(StatusCodes.OK).json(result);
   return;
 };

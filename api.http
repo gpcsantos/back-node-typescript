@@ -1,30 +1,30 @@
-@baseurl = http://localhost:3002
+# @baseurl = http://localhost:3002
+@baseurl = https://back-node-typescript.onrender.com/
 
 ###
 GET {{baseurl}}
 
 ### - GET Cidades
-GET {{baseurl}}/cidades?page=1&limit=1&filter=aaa
+GET {{baseurl}}/cidades
 
 ### - GET Cidades by ID
 GET {{baseurl}}/cidades/99999
-
 
 ### - POST - CIDADES 
 POST {{baseurl}}/cidades
 Content-Type: application/json
 
 {
-  "nome": "Ta"
+  "nome": "Campos do Jordão"
 }
 
 ### - PUT - CIDADES 
-PUT {{baseurl}}/cidades/1
+PUT {{baseurl}}/cidades/7
 Content-Type: application/json
 
 {
-  "nome": "Taubaté"
+  "nome": "Campos do Jordão"
 }
 
 ### - DELETE Cidades by ID
-DELETE {{baseurl}}/cidades/1
+DELETE {{baseurl}}/cidades/99999
